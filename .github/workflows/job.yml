@@ -2,7 +2,7 @@ name: CI
 on: [pull_request]
 jobs:
     build:
-        runs_on: ubuntu_latest
+        runs-on: ubuntu_latest
         steps:
             - uses: actions/checkout@v2
             - run: npm install
