@@ -6,6 +6,8 @@ services:
         volumes:
             - ./:/usr/src/app
         stdin_open: true
+        ports:
+            - 3001:3000
         depends_on: 
             - todoapp-backend-postgresql
             - todoapp-backend-postgresql-test

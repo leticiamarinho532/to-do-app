@@ -13,7 +13,7 @@ module.exports = {
   development: {
     client: 'postgresql',
     connection: {
-      host: '0.0.0.0:5432',
+      host: 'todoapp_todoapp-backend-postgresql_1',
       database: 'todoapp',
       user: 'admin',
       password: 'admin'

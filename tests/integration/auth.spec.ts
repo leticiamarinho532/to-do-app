@@ -1,4 +1,4 @@
-import * as request from 'supertest';
+import {default as request} from 'supertest';
 
 import app from '../../src/app';
 import connection from '../../src/database/connection';
