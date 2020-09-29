@@ -13,22 +13,33 @@ module.exports = {
   development: {
     client: 'postgresql',
     connection: {
+      host: '0.0.0.0:5432',
       database: 'todoapp',
       user: 'admin',
       password: 'admin'
     },
     migrations: {
       directory: path.resolve(__dirname, 'src', 'database', 'migrations')
+    },
+    seeds: {
+      directory: path.resolve(__dirname, 'src', 'database', 'seeds')
     }
   },
 
   test: {
     client: 'postgresql',
     connection: {
-      database: 'todoapp-test',
+      host: '0.0.0.0:5000',
+      database: 'todoapp',
       user: 'admin',
       password: 'admin'
     },
+    migrations: {
+      directory: path.resolve(__dirname, 'src', 'database', 'migrations')
+    },
+    seeds: {
+      directory: path.resolve(__dirname, 'src', 'database', 'seeds')
+    }
   }
 
   // staging: {
