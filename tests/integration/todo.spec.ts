@@ -1,7 +1,7 @@
-const request = require('supertest');
+import * as request from 'supertest';
 
-const app = require('../../src/app');
-const connection = require('../../src/database/connection');
+import app from '../../src/app';
+import connection from '../../src/database/connection';
 
 describe('TODO', () => {
     beforeAll(async () => {
