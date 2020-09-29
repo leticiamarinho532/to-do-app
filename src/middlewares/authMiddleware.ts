@@ -11,22 +11,26 @@ function authMiddleware (request: Request, response: Response, next: NextFunctio
     const { authorization } = request.headers;
 
     if (!authorization) {
-        return response.status(401);
+        return response.status(401).json({ message: 'Não autorizado' });
     }
 
     const token = authorization.trim();
 
-    try {
-        const data = jwt.verify(token, 'secret');
+    if (token == '') {
+        return response.status(401).json({ message: 'Não autorizado' });
+    }
 
-        const { id } = data as TokenPayload;
+    jwt.verify(token, 'secret', function(err, decoded) {
+        if (err) {
+            return response.status(401).json({ message: 'Não autorizado' });
+        }
+
+        const { id } = decoded as TokenPayload;
 
         request.userId = id;
 
         return next();
-    } catch {
-        return response.status(401);
-    }
+    });
 
 }
 
