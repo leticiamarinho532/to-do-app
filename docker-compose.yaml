@@ -8,8 +8,10 @@ services:
         stdin_open: true
         depends_on: 
             - todoapp-backend-postgresql
+            - todoapp-backend-postgresql-test
+            - adminer
         
-    
+
     todoapp-backend-postgresql:
         image: postgres
         restart: always
@@ -21,3 +23,21 @@ services:
             POSTGRES_DB: todoapp
             POSTGRES_USER: admin
             POSTGRES_PASSWORD: admin
+
+    todoapp-backend-postgresql-test:
+        image: postgres
+        restart: always
+        ports:
+            - 5000:5432
+        volumes:
+            - ./.docker/dbdatatest:/var/lib/postgresql/data
+        environment:
+            POSTGRES_DB: todoapp
+            POSTGRES_USER: admin
+            POSTGRES_PASSWORD: admin
+
+    adminer:
+        image: adminer
+        restart: always
+        ports:
+            - 8080:8080
