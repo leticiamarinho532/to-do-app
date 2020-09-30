@@ -7,7 +7,7 @@ describe('TODO', () => {
     beforeAll(async () => {
         await connection.seed.run();
 
-        const response = request(app)
+        const response = await request(app)
             .post('/auth/login')
             .send({
                 email: 'teste@teste.com',
@@ -15,6 +15,8 @@ describe('TODO', () => {
             });
 
         const token = response.body.token;
+
+        return token;
     });
 
     afterAll(async () => {
@@ -24,7 +26,7 @@ describe('TODO', () => {
     it('should be able to create a new to-do', async () => {
         const response = await request(app)
             .post('/todo')
-            .set('Authorization', 'bearer ' + token)
+            .set('Authorization', token)
             .send({
                 title: 'Titulo teste',
                 description: 'descrição teste'
@@ -37,7 +39,7 @@ describe('TODO', () => {
     it('should be able to update the flag from undone to done', async () => {
         const response = await request(app)
             .put('/todo')
-            .set('Authorization', 'bearer ' + token)
+            .set('Authorization', token)
             .send({
                 flag: 0
             });
@@ -49,8 +51,8 @@ describe('TODO', () => {
 
     it('should be able to list all to-do', async () => {
         const response = await request(app)
-            .set('Authorization', 'bearer ' + token)
-            .get('/todo');
+            .get('/todo')
+            .set('Authorization', token);
 
         expect(response.body).toEqual(
             expect.arrayContaining(
@@ -75,7 +77,7 @@ describe('TODO', () => {
         const responseDelete = await request(app)
         .delete('/')
         .send({
-            id: responseAdd.id
+            id: responseAdd.body.id
         })
 
         expect(responseDelete.status).toBe(204);
