@@ -2,18 +2,21 @@ import {default as request} from 'supertest';
 
 import app from '../../src/app';
 import Token from '../mock/Token';
-import connection from '../../src/database/connection';
+import knex from '../../src/database/connection';
 
 const token = new Token();
 
 describe('TODO', () => {
 
     beforeAll(async () => {
-        await connection.seed.run();
+        await knex.seed.run();
+        await knex.migrate.rollback();
+        await knex.migrate.latest();
     });
 
     afterAll(async () => {
-        await connection.destroy();
+        await knex.migrate.rollback();
+        await knex.destroy();
     });
 
     it('should be able to create a new to-do', async () => {

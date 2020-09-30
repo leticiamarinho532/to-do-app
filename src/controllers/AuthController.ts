@@ -6,6 +6,7 @@ import knex from '../database/connection';
 
 class AuthController
 {
+
     async create(request: Request, response: Response) {
         let { name, email, password } = request.body;
 

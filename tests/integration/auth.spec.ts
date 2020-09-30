@@ -3,9 +3,14 @@ import {default as request} from 'supertest';
 import app from '../../src/app';
 import knex from '../../src/database/connection';
 
-
 describe('AUTH', () => {
+    beforeEach(async() => {
+        await knex.migrate.latest();
+        await knex.seed.run();
+    });
+
     afterAll(async () => {
+        await knex.migrate.rollback();
         await knex.destroy();
     });
 
@@ -14,7 +19,7 @@ describe('AUTH', () => {
             .post('/user/create')
             .send({
                 name: 'Teste',
-                email: 'teste2@teste.com',
+                email: 'teste@teste.com',
                 password: '123456'
             });
 
@@ -26,7 +31,7 @@ describe('AUTH', () => {
         const response = await request(app)
             .post('/user/login')
             .send({
-                email: 'teste2@teste.com',
+                email: 'julia@teste.com',
                 password: '123456'
             });
 
