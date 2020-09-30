@@ -1,18 +1,12 @@
-import knex from 'knex';
+const knex = require('knex');
+const configuration = require('../../knexfile');
 
-const environment = process.env.ENVIRONMENT || 'development';
-const config = require('../../knexfile')[environment];
+const env = process.env.NODE_ENV == 'test'? configuration.test : configuration.development ;
 
-// const connection = knex({
-//     client: 'postgresql',
-//     connection: {
-//       database: 'todoapp',
-//       user: 'admin',
-//       password: 'admin'
-//     }
-// });
+export default knex(env);
 
-// export default connection;
+// const environment = process.env.ENVIRONMENT || 'development' || 'test';
+// const config = require('../../knexfile')[environment];
+//
+// export default knex(config);
 
-export default knex(config);
-// module.exports = require('knex')(config);

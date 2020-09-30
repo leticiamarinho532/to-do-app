@@ -1,14 +1,6 @@
 const path = require('path');
-// Update with your config settings.
 
 module.exports = {
-
-  // development: {
-  //   client: "sqlite3",
-  //   connection: {
-  //     filename: "./dev.sqlite3"
-  //   }
-  // },
 
   development: {
     client: 'postgresql',
@@ -29,7 +21,7 @@ module.exports = {
   test: {
     client: 'postgresql',
     connection: {
-      host: '0.0.0.0:5000',
+      host: 'todoapp_todoapp-backend-postgresql-test_1',
       database: 'todoapp',
       user: 'admin',
       password: 'admin'

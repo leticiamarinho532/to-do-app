@@ -26,7 +26,7 @@ class AuthController
                 password: password
             });
 
-        return response.json({ id });
+        return response.status(201).json({ id });
     }
 
     async login(request: Request, response: Response) {
