@@ -1,12 +1,12 @@
 import {default as request} from 'supertest';
 
 import app from '../../src/app';
-import connection from '../../src/database/connection';
+import knex from '../../src/database/connection';
 
 
 describe('AUTH', () => {
     afterAll(async () => {
-        await connection.destroy();
+        await knex.destroy();
     });
 
     it('should be able to create a new user', async () => {
@@ -41,11 +41,11 @@ describe('AUTH', () => {
                 password: '123456'
             });
 
-        const token = requestToken.token;
+        const token = requestToken.body.token;
 
         const response = await request(app)
-            .set('Authorization', 'bearer ' + token)
-            .post('/auth/logout');
+            .post('/auth/logout')
+            .set('Authorization', token);
 
        expect(response.status).toBe(200);
 
