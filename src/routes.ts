@@ -15,9 +15,9 @@ routes.post('/user/logout', authController.logout);
 
 
 routes.post('/todo', authMiddleware, toDoController.create);
-// routes.put('/todo', authMiddleware, toDoController.update);
+routes.put('/todo', authMiddleware, toDoController.update);
 routes.get('/todo', authMiddleware, toDoController.index);
-// routes.delete('/todo', authMiddleware, toDoController.delete);
+routes.delete('/todo', authMiddleware, toDoController.delete);
 
 // routes.get('/teste', authMiddleware, (request, response) => {
 //     console.log(request.userId);
